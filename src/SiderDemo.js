@@ -1,17 +1,26 @@
 import React from 'react';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu, Icon, Button, Drawer } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 export default class SiderDemo extends React.Component {
   state = {
     collapsed: false,
+    visible: false,
   };
 
   toggle = () => {
     this.setState({
       collapsed: !this.state.collapsed,
     });
+  }
+
+  showDrawer = () => {
+      this.setState({ visible: true })
+  }
+
+  onClose = () => {
+      this.setState({ visible: false })
   }
 
   render() {
@@ -72,7 +81,22 @@ export default class SiderDemo extends React.Component {
                         <br />...<br />...<br />...<br />...<br />...<br />
                         content
                     </div>
+                    <div>
+                        <Button type="ghost" onClick={this.showDrawer}>
+                            Open
+                        </Button>
+                        <Drawer
+                            title="My Drawer"
+                            placement="left"
+                            closable={false}
+                            onClose={this.onClose}
+                            visible={this.state.visible}
+                        >
+                            <p>Hi Drawer !</p>
+                        </Drawer>
+                    </div>
                 </Content>
+                
                 <Footer style={{ textAlign: 'center' }}>
                     Soufiane CopyRight
                 </Footer>
