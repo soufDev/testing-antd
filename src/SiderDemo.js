@@ -1,29 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout, Menu, Icon, Button, Drawer } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-export default class SiderDemo extends React.Component {
-  state = {
-    collapsed: false,
-    visible: false,
-  };
+export default function SiderDemo() {
+    const [visible, setVisible] = useState(false);  
 
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  }
+    function showDrawer() {
+        setVisible(true)
+    }
 
-  showDrawer = () => {
-      this.setState({ visible: true })
-  }
-
-  onClose = () => {
-      this.setState({ visible: false })
-  }
-
-  render() {
+    function onClose() {
+        setVisible(false)
+    }
     return (
         <Layout>
             <Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
@@ -82,15 +71,15 @@ export default class SiderDemo extends React.Component {
                         content
                     </div>
                     <div>
-                        <Button type="ghost" onClick={this.showDrawer}>
+                        <Button type="ghost" onClick={showDrawer}>
                             Open
                         </Button>
                         <Drawer
                             title="My Drawer"
                             placement="left"
                             closable={false}
-                            onClose={this.onClose}
-                            visible={this.state.visible}
+                            onClose={onClose}
+                            visible={visible}
                         >
                             <p>Hi Drawer !</p>
                         </Drawer>
@@ -102,6 +91,5 @@ export default class SiderDemo extends React.Component {
                 </Footer>
             </Layout>
         </Layout>
-    );
-  }
+    )
 }
